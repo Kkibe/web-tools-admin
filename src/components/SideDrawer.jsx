@@ -1,6 +1,6 @@
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, useDisclosure, IconButton, Menu, MenuButton, Text, useColorMode } from '@chakra-ui/react'
 import React, { useRef, useState } from 'react'
-import { FaArrowRight, FaBoxOpen, FaHome, FaInbox, FaMoon, FaPen, FaPlug, FaRecycle, FaSun, FaUserCog } from 'react-icons/fa'
+import { FaArrowRight, FaBell, FaBoxOpen, FaHome, FaInbox, FaMoon, FaPen, FaPlug, FaRecycle, FaSun, FaUserCog } from 'react-icons/fa'
 import { FaHamburger } from 'react-icons/fa'
 import ALertItem from './ALertItem'
 import { NavLink } from 'react-router-dom'
@@ -28,7 +28,7 @@ export default function SideDrawer() {
                 <MenuButton
                   as={IconButton}
                   aria-label='Options'
-                  icon={<FaInbox />}
+                  icon={<FaBell />}
                   title='inbox'
                   variant='outline'
                   margin={2}

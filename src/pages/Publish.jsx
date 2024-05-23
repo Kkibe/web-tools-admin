@@ -9,10 +9,16 @@ import {
     Heading,
     ButtonGroup,
     Container,
+    Img,
 } from "@chakra-ui/react";
 import { FaChrome, FaEdge, FaFileUpload, FaFirefox, FaImage } from "react-icons/fa";
  
+import Image from '../assets/icon.png';
+
 const Publish = () => {
+    const [featuredImage1, setFeaturedImage1] = useState(null);
+
+
     const [formData, setFormData] = useState({
         firstName: "",
         emailAddress: "",
@@ -20,6 +26,16 @@ const Publish = () => {
         languages: [],
         nationality: "",
         address: "",
+    });
+
+    const [data, setData] = useState({
+        title: "",
+        description: "",
+        userFeedbackEnabled: false,
+        platforms: ["chrome"],
+        category: "",
+        icon: "",
+        featureGraphics: '',
     });
  
     const handleInputChange = (field, value) => {
@@ -64,7 +80,7 @@ const Publish = () => {
                 <Flex
                     direction="column"
                     alignItems="center"
-                    w={{ base: "90%", md: "70%", lg: "50%" }}>
+                    w={{ base: "99%", md: "90%", lg: "80%" }}>
                     <Heading as="h2" fontWeight="bold">
                         Publish an extension to web store
                     </Heading>
@@ -108,9 +124,30 @@ const Publish = () => {
                     <FormControl margin={3} isRequired>
                         <FormLabel>Choose Platform:</FormLabel>
                         <Stack spacing={3} direction="row">
-                            <Checkbox>Chrome </Checkbox>
-                            <Checkbox> Firefox</Checkbox>
-                            <Checkbox>Edge</Checkbox>
+                            <Checkbox onChange={
+                                (value) =>
+                                    setData("platforms", () => {
+                                        value && data.platforms.push("chrome");
+                                        console.log(data.platforms)
+                                    })
+                            }>Chrome </Checkbox>
+                            <Checkbox onChange={
+                                (value) =>
+                                    setData("platforms", () => {
+                                        value && data.platforms.push("firefox");
+                                        console.log(data.platforms)
+                                    })
+                            }> Firefox</Checkbox>
+                            <Checkbox onChange={
+                                (value) => {
+                                    if(value){
+                                        setData("platforms", ...data.platforms, "edge")
+                                        console.log(data.platforms)
+                                    } else {
+                                        //setData("platforms", )
+                                    }
+
+                            }}>Edge</Checkbox>
                         </Stack>
                     </FormControl>
                     <FormControl>
@@ -138,27 +175,32 @@ const Publish = () => {
                         <FormLabel>Icon</FormLabel>
                         <Flex padding={1} width='260px' height='260px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
                             <Button><FaFileUpload /></Button>
-                            <Text textAlign='center'>Click here or drag & drop to upload.</Text>
+                            <Text textAlign='center'>Click here to browse or drag & drop to upload.</Text>
                             <Input type='file' width={'100%'} height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'/>
                         </Flex>
                     </FormControl>
-                    <FormControl isRequired margin={3}>
+                    <FormControl isRequired margin={1}>
                         <FormLabel>Feature Graphics</FormLabel>
-                        <Flex display='flex' width='100%' alignItems='center' justifyContent='space-between'>
-                        <Flex margin={3} padding={1} width='260px' height='260px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
+                        <Flex display='flex' width='100%' alignItems='center' justifyContent='space-between' flexWrap={'wrap'} gap={"5px"}>
+                        <Flex padding={1} width='100%' maxWidth={"250px"} height='250px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
                             <Button><FaFileUpload /></Button>
                             <Text>Add First Image</Text>
-                            <Input type='file' width={'100%'} height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'/>
+                            <Input type='file' width='100%'  height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'/>
+                            <Img src={Image}  width='100%'  height='100%' position='absolute' zIndex={2} />
                         </Flex>
-                        <Flex margin={3} padding={1} width='260px' height='260px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
+                        <Flex padding={1} maxWidth={"250px"} width='100%' height='250px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
                             <Button><FaFileUpload /></Button>
                             <Text>Add Second Image</Text>
-                            <Input type='file' width={'100%'} height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'/>
+                            <Input type='file' width='100%' height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'  onChange={(e) => {
+                                setFeaturedImage1(e.target.files[0])
+                                console.log(featuredImage1)
+                            }}/>
+                            {featuredImage1 && <Img src={featuredImage1 && featuredImage1}  width='100%'  height='100%' position='absolute' zIndex={2} />}
                         </Flex>
-                        <Flex margin={3} padding={1} width='260px' height='260px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
+                        <Flex padding={1} maxWidth={"250px"} width='100%' height='250px'  border={"1px solid grey"} display='flex' alignItems='center' justifyContent='center' flexDirection='column' position='relative'>
                             <Button><FaFileUpload /></Button>
                             <Text>Add Third Image</Text>
-                            <Input type='file' width={'100%'} height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'/>
+                            <Input type='file' width='100%' maxWidth={"260px"} height='100%' position='absolute' zIndex={3} opacity={0} cursor='pointer'/>
                         </Flex>
                         </Flex>
                     </FormControl>
